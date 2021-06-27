@@ -23,13 +23,16 @@
 class Solution:
     
     def numWays(self, n: int) -> int:
-    if n == 0
-    return 1
-    if n == 1
-    return 1
-    result=self.numWays(n-1)+self.numWays(n-2)
+        if n == 0:
+            return 1
+        if n == 1:
+            return 1
+        result = self.numWays(n-1) + self.numWays(n-2)
 
 # leetcode submit region end(Prohibit modification and deletion)
-print(Solution.numWays(0))
-print(Solution.numWays(2))
-print(Solution.numWays(7))
+
+
+solution = Solution()
+print(solution.numWays(0))
+print(solution.numWays(2))
+print(solution.numWays(7))
