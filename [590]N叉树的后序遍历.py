@@ -59,8 +59,8 @@ class Solution:
         if not root:
             return []
         res = []
-        for node in root.children:
-            res.extend(self.postorder(node))
-        res.append(root.val)
+        for node in root.children:  # 遍历孩子节点
+            res.extend(self.postorder(node))  # 将孩子节点加入到结果，注意要用extend
+        res.append(root.val)  # 将根节点加入到结果
         return res
 # leetcode submit region end(Prohibit modification and deletion)

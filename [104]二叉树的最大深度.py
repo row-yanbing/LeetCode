@@ -60,8 +60,8 @@ class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if root.val is None:
             return 0
-        l = self.maxDepth(root.left)
-        r = self.maxDepth(root.right)
+        l = self.maxDepth(root.left)  # 计算左子树的深度
+        r = self.maxDepth(root.right)  # 计算右子树的深度
         return max(l, r) + 1
 
 # leetcode submit region end(Prohibit modification and deletion)

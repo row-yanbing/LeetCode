@@ -57,8 +57,8 @@ class Solution:
     def preorder(self, root: 'Node') -> List[int]:
         if not root:
             return []
-        res = [root.val]
-        for node in root.children:
-            res.extend(self.preorder(node))
+        res = [root.val] #将根节点加入结果
+        for node in root.children: #遍历孩子节点
+            res.extend(self.preorder(node)) #将孩子节点加入结果，注意要用extend，不能用append
         return res
 # leetcode submit region end(Prohibit modification and deletion)
