@@ -58,7 +58,7 @@ class Solution:
 
 
     def palindrom(self, s, l, r):  # 返回以s[l,r]为中心的最长回文子串，当l=r时，中间只有一个元素
-        while l >= 0 and r < len(s) and s[l] == s[r]:
+        while l >= 0 and r < len(s) and s[l] == s[r]: # 注意这行的精髓，先判断范围，再判断是否相等
             l -= 1
             r += 1
         return s[l+1:r]

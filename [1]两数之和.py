@@ -21,7 +21,7 @@ class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         for i in range(len(nums)):
             res = target-nums[i]
-            if res in nums and nums.index(res) != i:
+            if res in nums and nums.index(res) != i:  # 如果存在这样的数，并且该数字的索引不等于i，则是要找的数字
                 return [i, nums.index(res)]
 # leetcode submit region end(Prohibit modification and deletion)
 solution = Solution()
