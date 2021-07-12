@@ -35,7 +35,7 @@ class Solution:
         self.backtrack(n, n, track)
         return self.res
 
-    def backtrack(self,left, right, track):
+    def backtrack(self, left, right, track):
         if left < 0 or right < 0:
             return
         if left > right: #如果左括号剩余数目大于右括号剩余数目，则不合法

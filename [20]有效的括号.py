@@ -66,7 +66,7 @@ class Solution:
                     stack.pop()
                 else:
                     return False
-            else:  # 若遇到左括号，则直接入栈
+            else:  # 若遇到左括号或者栈为空，则直接入栈，
                 stack.append(char)
         return not stack  # 当栈为空时，返回True
 # leetcode submit region end(Prohibit modification and deletion)
