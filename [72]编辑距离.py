@@ -49,16 +49,16 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        memo = [[0]*(len(word2)+1) for _ in range(len(word1)+1)]
-        for j in range(len(word2)):
+        memo = [[0]*(len(word2)+1) for _ in range(len(word1)+1)]  # 初始化memo[][],memo[i][j]表示word1[:i]和word2[:j]的最小编辑距离
+        for j in range(len(word2)):  # 初始化memo[0][],表示word1只有0个字母时，最短编辑距离
             memo[0][j] = j
-        for j in range(len(word1)):
+        for j in range(len(word1)):  # 初始化memo[][0],表示word2只有0个字母时，最短编辑距离
             memo[j][0] = j
-        for i in range(1,len(word1)+1):
+        for i in range(1,len(word1)+1):  # 开始循环遍历
             for j in range(1, len(word2)+1):
-                if word1[i-1] == word2[j-1]:
-                    memo[i][j] = memo[i-1][j-1]
-                else:
+                if word1[i-1] == word2[j-1]:  # 注意，由于memo尺寸为n+1，所以索引要减少1
+                    memo[i][j] = memo[i-1][j-1]  # 若word1和word2当前字符相同，则不用改变，当前memo[i][j]和memo[i-1][j-1]相同
+                else:  # 否则，对word1进行操作，插入字符memo[i][j-1]，删除字符memo[i-1][j]，替换字符memo[i-1][j-1]
                     memo[i][j] = min(memo[i][j-1]+1, memo[i-1][j]+1, memo[i-1][j-1]+1)
         return memo[len(word1)][len(word2)]
 # leetcode submit region end(Prohibit modification and deletion)

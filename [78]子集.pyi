@@ -38,13 +38,15 @@ class Solution:
         self.backtrack(0, nums, [])
         return self.res
 
-    def backtrack(self, index, nums, track,): #回溯算法
+    def backtrack(self, index, nums, track): #回溯算法
         if index == len(nums): #结束条件
             self.res.append(track[:]) #注意，添加时要用[:]
             return
-        track.append(nums[index]) #将nums[index]加入start
-        self.backtrack(index+1, nums, track) #选择nums[index]
+        track.append(nums[index]) #将nums[index]加入track
+        self.backtrack(index+1, nums, track) #进行回溯
         track.pop() #撤销nums[index]
+        self.backtrack(index+1, nums, track) # track不添加nums[index]，进行回溯
+
 # leetcode submit region end(Prohibit modification and deletion)
 
 

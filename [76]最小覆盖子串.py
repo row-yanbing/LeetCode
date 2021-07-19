@@ -35,39 +35,38 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
+        t_dic = {}  # 建立字典，用于统计t中出现的字符
+        for char in t:
+            if char in t_dic:
+                t_dic[char] += 1
+            else:
+                t_dic[char] = 1
+        left = 0  # 用双指针
+        count = len(t)  # 记录t中的字符总数
         right = 0
-        left = 0
-        t_list = list(t)
-        t_set = set(t_list)
-        t_dic = {}
-        for i in t_list:
-            t_dic[i] = t_list.count(i)  #构建子字符串的字典，记录字符串元素和对应出现的频数
-        count = len(t)   #记录子字符串的元素个数
-        s_list = list(s)
-        min_dic = {} #记录每次包含子字符串全部元素时，滑动窗口的长度及内容
-        while right < len(s_list): #遍历字符串
-            if s_list[right] in t_set: #若出现子字符串的元素，count和子字符串字典处理
-                if t_dic[s_list[right]] > 0:
-                    count = count - 1
-                t_dic[s_list[right]] = t_dic[s_list[right]] - 1
-                while count == 0:
-                    windows_len = right - left + 1
-                    min_dic[windows_len] = s_list[left:right+1]
-                    if s_list[left] in t_set:
-                        if t_dic[s_list[left]] == 0:
-                            count = count + 1
-                        t_dic[s_list[left]] = t_dic[s_list[left]] + 1
-                    left = left + 1
-            right = right + 1
-        min_windows_len = sorted(min_dic)
-        min_list = min_dic[min_windows_len[0]] if min_dic else []
-
-        return "".join(min_list)
+        windows = {}  # 结果字典，用于记录每个符合要求的子串
+        while right < len(s):  # 遍历字符串s
+            if s[right] in t_dic:  # 判断字符是否存在于t
+                if t_dic[s[right]] > 0:  # 若该字符存在于t，且需要出现次数为正，则count数减少1
+                    count -= 1
+                t_dic[s[right]] -= 1  # 若该字符属于t，则字典中数目减少1
+                while count == 0:  # 当count数为0，也即t中所有字符全部出现在s[left:right+1]中时，缩减left边界，直到找到最小字符串
+                    if s[left] in t_dic:  # 若左边界字符在t中存在，则判断当前子字符串是否包含全部t的字符
+                        if t_dic[s[left]] >= 0:  # 若字典中该字符需要出现次数不为负数，则count数加1
+                            count += 1
+                            windows_len = right - left + 1  # 此时该子字符串为当前包含t所有元素的子字符串，长度为
+                            windows[windows_len] = s[left:right+1]  # 记录该子字符串的长度和子字符串记录，由于是唯一的，故key不存在冲突
+                        t_dic[s[left]] += 1  # 将字典中该字符需要出现次数加1
+                    left += 1  # 缩减左边界
+            right += 1
+        sort_win = sorted(windows)  # 将记录结果按字符串铲毒排序
+        min_char = windows[sort_win[0]] if windows else ''
+        return min_char
 
 # leetcode submit region end(Prohibit modification and deletion)
 
 
 solution = Solution()
-print(solution.minWindow("ADOBECODEBANC", "ABC"))
-print(solution.minWindow("a", "a"))
+print(solution.minWindow("ADOBECODEBANCABC", "ABC"))
+print(solution.minWindow("a", "aa"))
 

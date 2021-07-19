@@ -45,7 +45,7 @@ class Solution:
 
     def backtrack(self,nums, track):
         if len(track) == len(nums): #终止条件，路径长度等于nums长度
-            self.res.append(track[:])
+            self.res.append(track[:])  # 注意要用track[:]，否则出错
             return
         for i in range(len(nums)): #从0开始，每次取nums中的一个数
             if nums[i] in track: #若数字在路径中，则跳过，取下一个数

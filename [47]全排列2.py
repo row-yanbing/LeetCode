@@ -42,7 +42,7 @@ class Solution:
 
     def backtrack(self,nums, index, track): #用index记录被访问过的元素索引
         if len(track) == len(nums) and track not in self.res: #如果track长度达到，且不存在重复，则存入结果
-            self.res.append(track[:])
+            self.res.append(track[:])  # 注意要用复制[:]
             return
         for i in range(len(nums)):
             if i in index: #排除已访问的元素

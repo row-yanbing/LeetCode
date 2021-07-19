@@ -25,31 +25,60 @@
 #  Related Topics 树 广度优先搜索
 #  👍 904 👎 0
 
+from typing import List
+from collections import deque
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+    def generate_tree(self,vals):
+        if not vals:
+            return None
+        root = TreeNode(vals[0])
+        q = deque([root])
+        i = 1
+        while q:
+            size = len(q)
+            for _ in range(size):
+                cur = q.popleft()
+                if i < len(vals) and vals[i]:
+                    cur.left = TreeNode(vals[i])
+                    q.append(cur.left)
+                i += 1
+                if i < len(vals) and vals[i]:
+                    cur.right = TreeNode(vals[i])
+                    q.append(cur.right)
+                i += 1
+        return root
 
 # leetcode submit region begin(Prohibit modification and deletion)
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+from collections import deque
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
         res = []
-        cur = [root] #用于存储当前一层节点
-        que = [] #用于临时存储孩子节点
-        while cur or que:
-            tmp = [] #用于临时存储当前一层的节点根值
-            for node in cur:
-                tmp.append(node.val) #将节点的根值临时存起来
-                if node.left: #如果存在孩子节点，则将其加入到que中临时存储，用于下一轮遍历
-                    que.append(node.left)
-                if node.right:
-                    que.append(node.right)
-            res.append(tmp) #将一层的节点根值存入结果
-            cur = que #cur指向下一层节点，即之前存储的孩子节点
-            que = [] #将队列清空
+        q = deque([root]) #用于存储当前一层节点
+        while q:
+            size = len(q)
+            level = []
+            for _ in range(size):
+                cur = q.popleft()
+                level.append(cur.val)
+                if cur.left:
+                    q.append(cur.left)
+                if cur.right:
+                    q.append(cur.right)
+            res.append(level)
         return res
 # leetcode submit region end(Prohibit modification and deletion)
+solution = Solution()
+treenode = TreeNode()
+null = None
+tree1 = treenode.generate_tree([3,9,20,null,null,15,7])
+print(solution.levelOrder(tree1))

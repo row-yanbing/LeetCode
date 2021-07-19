@@ -41,13 +41,13 @@ class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         if not head:
             return None
-        slow = head
-        fast = head.next
-        while fast:
-            if fast.val != slow.val:
-                slow.next = fast
-                slow = slow.next
-            fast = fast.next
-        slow.next = None
+        slow = head  # 设置慢指针
+        fast = head.next  # 设置快指针
+        while fast:  # 遍历链表
+            if fast.val != slow.val:  # 若不存在重复元素
+                slow.next = fast  # 将慢指针的下一跳指向fast
+                slow = slow.next  # 移动慢指针
+            fast = fast.next  # 移动fast指针
+        slow.next = None  # 将慢指针尾部截断
         return head
 # leetcode submit region end(Prohibit modification and deletion)
