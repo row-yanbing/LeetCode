@@ -51,7 +51,7 @@
 #  进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 #  Related Topics 栈 树 哈希表
 #  👍 996 👎 0
-
+from collections import deque
 from typing import List
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -60,21 +60,24 @@ class TreeNode:
         self.right = right
 
     def generate_tree(self, vals: List):
-        if len(vals) != 0:
-            root = TreeNode(vals[0])
-            nodes = [root]
-            count = 1
-            while nodes and count < len(vals):
-                node = nodes[0]
-                node.left = TreeNode(vals[count])
-                nodes.append(node.left)
-                node.right = TreeNode(vals[count + 1]) if count + 1 < len(vals) else None
-                nodes.append(node.right)
-                count += 2
-                nodes.pop(0)
-            return root
-        else:
+        if not vals:
             return None
+        root = TreeNode(vals[0])
+        q = deque([root])
+        i = 1
+        while q:
+            size = len(q)
+            for _ in range(size):
+                cur = q.popleft()
+                if i < len(vals) and vals[i]:
+                    cur.left = TreeNode(vals[i])
+                    q.append(cur.left)
+                i += 1
+                if i < len(vals) and vals[i]:
+                    cur.right = TreeNode(vals[i])
+                    q.append(cur.right)
+                i += 1
+        return root
 
 
 # leetcode submit region begin(Prohibit modification and deletion)

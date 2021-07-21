@@ -23,7 +23,7 @@
 #  Related Topics 树 广度优先搜索
 #  👍 448 👎 0
 
-
+from collections import deque
 # leetcode submit region begin(Prohibit modification and deletion)
 # Definition for a binary tree node.
 # class TreeNode:
@@ -36,18 +36,17 @@ class Solution:
         if root is None:
             return []
         res = []
-        que = []
-        cur = [root]
-        while cur or que:
-            tmp = []
-            for node in cur:
-                tmp.append(node.val)
-                if node.left:
-                    que.append(node.left)
-                if node.right:
-                    que.append(node.right)
-            res.append(tmp)
-            cur = que
-            que = []
+        q = deque([root])  # 双端队列q，用于某一层存储节点
+        while q:  # 对队列进行遍历
+            size = len(q)
+            level = []  # 用于存储某一层的遍历结果
+            for _ in range(size):
+                cur = q.popleft()  # 将节点弹出
+                level.append(cur.val)  # 将节点值存入level中
+                if cur.left:  # 若当前节点存在左右子节点，将其加入q中
+                    q.append(cur.left)
+                if cur.right:
+                    q.append(cur.right)
+            res.append(level)  # 将某层的遍历结果添加至最终结果中
         return res[::-1]
 # leetcode submit region end(Prohibit modification and deletion)

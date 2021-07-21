@@ -61,14 +61,14 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        slow = -1
-        fast = 0
-        while fast < len(nums):
-            if nums[fast] != val:
-                slow += 1
-                nums[slow] = nums[fast]
-            fast += 1
-        return slow + 1
+        pre = -1
+        cur = 0
+        while cur < len(nums):
+            if nums[cur] != val:
+                pre += 1
+                nums[pre] = nums[cur]
+            cur += 1
+        return pre + 1
 # leetcode submit region end(Prohibit modification and deletion)
 solution = Solution()
 print(solution.removeElement([3,2,2,3],3))

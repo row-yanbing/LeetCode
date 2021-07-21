@@ -49,14 +49,13 @@
 #         self.left = left
 #         self.right = right
 class solution:
-    def isbalanced(self, root: treenode) -> bool:
+    def isbalanced(self, root: TreeNode) -> bool:
         if not root:
-            return true
-        if abs(self.depth(root.left) - self.depth(root.right)) <=1 and \
-                self.isbalanced(root.left) and self.isbalanced(root.right):
-            return true  #如果左右子树高度差<=1，且左右子树都是平衡树，则为平衡树
-        else:
-            return false
+            return True
+        if abs(self.depth(root.left) - self.depth(root.right)) > 1:
+            return False
+        return self.isbalanced(root.left) and self.isbalanced(root.right)
+        #如果左右子树高度差<=1，且左右子树都是平衡树，则为平衡树
 
     def depth(self, root) -> int:  # 计算树的高度
         if not root:

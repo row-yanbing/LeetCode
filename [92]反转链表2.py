@@ -33,31 +33,52 @@
 #  Related Topics 链表
 #  👍 955 👎 0
 
+from typing import List
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+    def generate(self, vals: List):
+        if not vals:
+            return None
+        head = ListNode(vals[0])
+        cur = head
+        for i in range(1, len(vals)):
+            cur.next = ListNode(vals[i])
+            cur = cur.next
+        cur.next = None
+        return head
 
 # leetcode submit region begin(Prohibit modification and deletion)
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution:
     def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
         dummy = ListNode(0)
         dummy.next = head
         count = 1
         pre = dummy
-        if not head or not head.next:
+        if not head or not head.next:  # 如果链表非空或只有一个元素，则直接返回head
             return head
-        while count < left:
+        while count < left:  # 找到left位置的前一个元素
             pre = pre.next
             count += 1
-        cur = pre.next
-        tail = pre
-        while cur.next and count < right:
-            nxt = cur.next
+        cur = pre.next  # cur表示需要反转的元素
+        tail = pre  # 将tail指针固定在left前一位置
+        while cur.next and count < right:  # 遍历left至right之间的元素，利用头插法进行反转
+            nxt = cur.next  # 储存cur的下一节点
             cur.next = nxt.next
             nxt.next = tail.next
             tail.next = nxt
             count += 1
         return dummy.next
 # leetcode submit region end(Prohibit modification and deletion)
+
+solution = Solution()
+listnode = ListNode()
+l1 = listnode.generate([1,2,3,4,5])
+k = solution.reverseBetween(l1,2,4)
+while k:
+    print(k.val)
+    k = k.next
+
