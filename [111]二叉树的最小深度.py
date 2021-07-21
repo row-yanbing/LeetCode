@@ -30,7 +30,7 @@
 #
 #  Related Topics 树 深度优先搜索 广度优先搜索
 #  👍 523 👎 0
-
+from collections import deque
 from typing import List
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -41,25 +41,21 @@ class TreeNode:
     def generate_tree(self, vals:List):
         if len(vals) == 0:
             return None
-        que = [] # 定义队列
-        root = []
-        fill_left = True # 由于无法通过是否为 None 来判断该节点的左儿子是否可以填充，用一个记号判断是否需要填充左节点
-        for val in vals:
-            node = TreeNode(val) if val else None # 非空值返回节点类，否则返回 None
-            if len(que)==0:
-                root = node # 队列为空的话，用 root 记录根结点，用来返回
-                que.append(node)
-            elif fill_left:
-                que[0].left = node
-                fill_left = False # 填充过左儿子后，改变记号状态
-                if node: # 非 None 值才进入队列
-                    que.append(node)
-            else:
-                que[0].right = node
-                if node:
-                    que.append(node)
-                que.pop(0) # 填充完右儿子，弹出节点
-                fill_left = True #
+        root = TreeNode(vals[0])
+        q = deque([root])
+        i = 1
+        while q:
+            size = len(q)
+            for _ in range(size):
+                cur = q.popleft()
+                if i < len(vals) and vals[i]:
+                    cur.left = TreeNode(vals[i])
+                    q.append(cur.left)
+                i += 1
+                if i < len(vals) and vals[i]:
+                    cur.right = TreeNode(vals[i])
+                    q.append(cur.right)
+                i += 1
         return root
 
 
@@ -74,14 +70,13 @@ class Solution:
     def minDepth(self, root: TreeNode) -> int:
         if root is None:
             return 0
-        l = self.minDepth(root.left)
-        r = self.minDepth(root.right)
-        if root.right and not root.left:
-            return r + 1
-        if not root.right and root.left:
-            return l + 1
+        l = self.minDepth(root.left)  # 左子树的最小深度
+        r = self.minDepth(root.right)  # 右子树的最小深度
+        # 当左子树或右子树为空时，或者两者均为空时，l=0，或r=0，或者l=r=0，因此返回l+r+1
+        if not (root.right and root.left):
+            return l + r + 1
+        # 当左右子树都不为空时，返回最小值+1
         return min(l, r) + 1
 # leetcode submit region end(Prohibit modification and deletion)
-
 
 solution = Solution()
