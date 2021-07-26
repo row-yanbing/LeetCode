@@ -51,7 +51,6 @@ class Solution:
             k = k-1
         nums1[:n] = nums2[:n]  # 若nums2还剩n个元素，则直接将其添加至nums1中
 # leetcode submit region end(Prohibit modification and deletion)
-        return nums1
 
 solution = Solution()
 print(solution.merge([1,2,3,0,0,0],3,[2,5,6],3))
