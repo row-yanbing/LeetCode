@@ -36,7 +36,7 @@ class Solution:
         sums = int(sum(nums)/2)
         if sum(nums) % 2 == 1:  #如果和为奇数，则不能分
             return False
-        dp = [[False]*(sums + 1) for _ in range(m)] #dp[i][j]表示前i个元素能否凑成j，i是从0至n，就从0至nums
+        dp = [[False]*(sums + 1) for _ in range(m)] #dp[i][j]表示前i个元素能否凑成j，i是从0至n，j从0至nums
         for i in range(m): #如果j等于0，说明背包满了，也就是存在这样的元素
             dp[i][0] = True
         for i in range(1, m):
