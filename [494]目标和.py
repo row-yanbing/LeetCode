@@ -62,7 +62,7 @@ class Solution:
                 if res == 0:
                     return 1
                 return 0
-            result[(i,res)] = dp(i-1, nums[i] + res) + dp(i-1,res -nums[i])
+            result[(i,res)] = dp(i-1, nums[i] + res) + dp(i-1, res -nums[i])
             return result[(i, res)]
 
         return dp(len(nums)-1, target)
