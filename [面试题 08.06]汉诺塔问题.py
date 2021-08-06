@@ -28,14 +28,14 @@ class Solution:
 
     def move(self, n, A, B, C):
 
-        if n == 1:
+        if n == 1:  # 如果只有一个，则直接挪到c上
             C.append(A[-1])
             A.pop()
         else:
-            self.move(n-1, A, C, B)
-            C.append(A[-1])
+            self.move(n-1, A, C, B)  # 将n-1个盘通过c挪到b上
+            C.append(A[-1])  # 将a剩下的一个挪到c上
             A.pop()
-            self.move(n-1, B, A, C)
+            self.move(n-1, B, A, C)  # 将b上的n-1个盘通过a挪到c上
 # leetcode submit region end(Prohibit modification and deletion)
 
 solution = Solution()
