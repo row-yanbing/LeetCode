@@ -39,19 +39,19 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        self.res = []
-        self.backtrack(nums, [])
-        return self.res
+        res = []
+        self.backtrack(nums, [], res)
+        return res
 
-    def backtrack(self,nums, track):
+    def backtrack(self,nums, track,res):
         if len(track) == len(nums): #终止条件，路径长度等于nums长度
-            self.res.append(track[:])  # 注意要用track[:]，否则出错
+            res.append(track[:])  # 注意要用track[:]，否则出错
             return
         for i in range(len(nums)): #从0开始，每次取nums中的一个数
             if nums[i] in track: #若数字在路径中，则跳过，取下一个数
                 continue
             track.append(nums[i])
-            self.backtrack(nums, track)
+            self.backtrack(nums, track, res)
             track.pop()
 
 # leetcode submit region end(Prohibit modification and deletion)

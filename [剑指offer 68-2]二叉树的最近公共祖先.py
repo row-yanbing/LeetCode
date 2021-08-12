@@ -48,15 +48,15 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-        if root is None or root == p or root == q: #如果root为空，或者root等于p，q其中之一，则直接返回root
+        if not root or root == p or root == q: #如果root为空，或者root等于p，q其中之一，则直接返回root
             return root
         left = self.lowestCommonAncestor(root.left, p, q) #在左子树寻找
         right = self.lowestCommonAncestor(root.right, p, q) #在右子树寻找
-        if left is None:  #若左子树没有，则在右子树中
+        if not left:  #若左子树没有，则在右子树中
             return right
-        if right is None: #若右子树没有，则在左子树中
+        if not right: #若右子树没有，则在左子树中
             return left
-        if left is None and right is None:#如果都不在，则返回None（本题给出此种情况不存在）
+        if not left and not right:#如果都不在，则返回None（本题给出此种情况不存在）
             return None
         if left and right: #如果分别在左右子树中，则返回当前根节点
             return root #由于是后序遍历，最先返回的就是最近公共祖先
