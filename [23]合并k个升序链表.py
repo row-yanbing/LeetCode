@@ -60,7 +60,7 @@ class Solution:
         if n == 1:
             return lists[0]
         mid = n // 2
-        return self.twomerge(self.mergeKLists(lists[:mid]),self.mergeKLists(lists[mid:]))
+        return self.twomerge(self.mergeKLists(lists[:mid]), self.mergeKLists(lists[mid:]))
 
     def twomerge(self,l1, l2):
         if l1 and l2:

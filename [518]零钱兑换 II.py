@@ -55,15 +55,15 @@ from typing import List
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         n = len(coins)
-        dp = [[0]*(amount+1) for _ in range(n+1)]
-        for i in range(n+1):
+        dp = [[0]*(amount+1) for _ in range(n+1)]  # 动态规划，dp[i][j]表示amount为j时，coin[i]能凑成的种类数
+        for i in range(n+1):  # 若总金额为0，则只有一种凑法
             dp[i][0] = 1
         for i in range(1, n+1):
             for j in range(1, amount+1):
                 if j-coins[i-1] >= 0:
-                    dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]]
+                    dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]]  # 用coin[i]和不用coin[i]能凑成的总数
                 else:
-                    dp[i][j] = dp[i-1][j]
+                    dp[i][j] = dp[i-1][j]  # 凑不成
         return dp[n][amount]
 
 # leetcode submit region end(Prohibit modification and deletion)

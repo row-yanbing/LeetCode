@@ -50,16 +50,24 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        dp = [1]*len(nums) #dp[i]表示nums前i个元素最长递增子序列的长度
-        for i in range(len(nums)):
-            for j in range(i):
-                if nums[j] < nums[i]:
-                    dp[i] = max(dp[i], dp[j]+1)
-        return max(dp)
+        res = [nums[0]]
+        for i in range(1, len(nums)):
+            if nums[i] > res[-1]:
+                res.append(nums[i])
+            elif nums[i] < res[-1]:
+                left, right = 0, len(res)
+                while left < right:
+                    mid = left + (right - left) // 2
+                    if res[mid] < nums[i]:
+                        left = mid + 1
+                    else:
+                        right = mid
+                res[left] = nums[i]
+        return len(res)
 
 
 # leetcode submit region end(Prohibit modification and deletion)
 solution = Solution()
 print(solution.lengthOfLIS([10,9,2,5,3,7,101,18]))
-print(solution.lengthOfLIS([1,3,5,4,7]))
+print(solution.lengthOfLIS([4,10,4,3,8,9]))
 print(solution.lengthOfLIS([7,7,7,7,7,7,7]))

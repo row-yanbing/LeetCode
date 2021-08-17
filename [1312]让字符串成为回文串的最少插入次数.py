@@ -62,12 +62,12 @@ class Solution:
         n = len(s)
         if n <= 1:
             return 0
-        dp = [[0]*n for _ in range(n)]
-        for i in range(n-2, -1, -1):
+        dp = [[0]*n for _ in range(n)]  # dp[i][j]表示s[i,j]成为回文串的最小插入次数
+        for i in range(n-2, -1, -1):  # 倒序遍历
             for j in range(i+1, n):
-                if s[i] == s[j]:
+                if s[i] == s[j]:  # 若字符相等，则不用插入
                     dp[i][j] = dp[i+1][j-1]
-                else:
+                else:  # 若不相等，则在选择在i或者在j插入
                     dp[i][j] = min(dp[i][j-1], dp[i+1][j]) + 1
 
         return dp[0][n-1]
